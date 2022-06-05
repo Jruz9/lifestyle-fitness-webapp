@@ -1,18 +1,35 @@
 package com.webapp.lifestylefitnesswebapp.entities;
 
-public class food {
-     enum mealType {
-        breakfast,lunch,dinner, snack,;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "food")
+public class Food {
+    enum mealType {
+        breakfast, lunch, dinner, snack,
+        ;
     }
 
-
+    @Id
+    @Column(name = "food_id")
     private long foodId;
+
+    @Column(name = "food_name")
     private String foodName;
+    @Column(name = "calorie")
     private Double calorie;
+    @Column(name = "protein")
     private Double protein;
+    @Column(name = "carbs")
     private Double carbs;
+    @Column(name = "sugar")
     private Double sugar;
+    @Column(name = "fat")
     private Double fat;
+    @Column(name = "timezone")
     private String foodTime;
 
     public long getFoodId() {

@@ -1,13 +1,29 @@
 package com.webapp.lifestylefitnesswebapp.entities;
 
-public class user {
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+public class User {
+
+    @Id
+    @Column(name = "user_id")
     private long userId;
-    private String name;
-    private String email;
+
+    @Column(name = "username")
     private String userName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
     private String password;
 
-    public user(){
+    public User() {
 
     }
 
@@ -17,14 +33,6 @@ public class user {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
