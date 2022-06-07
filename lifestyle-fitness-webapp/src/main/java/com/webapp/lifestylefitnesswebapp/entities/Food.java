@@ -1,9 +1,6 @@
 package com.webapp.lifestylefitnesswebapp.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "food")
@@ -14,6 +11,7 @@ public class Food {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "food_id")
     private long foodId;
 

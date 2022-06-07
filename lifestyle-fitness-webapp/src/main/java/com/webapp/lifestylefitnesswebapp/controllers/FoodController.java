@@ -4,41 +4,45 @@ package com.webapp.lifestylefitnesswebapp.controllers;
 import com.webapp.lifestylefitnesswebapp.entities.Food;
 import com.webapp.lifestylefitnesswebapp.services.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/food")
 public class FoodController {
 
+    private static final String FOOD_NOT_FOUND_ERROR_MESSAGE = "Could not find the food with ID %d";
+
     @Autowired
     FoodService foodService;
 
-    @GetMapping
+
+    //change the whole system to use the react way of handling the data with the api.
+
+
+    @GetMapping("/food")
     //this method implementation will be just to list all of them. the next will be based on timeDate.
-    public String displayFoods(Model model){
-        List<Food> foodList= foodService.getAllFood();
-        model.addAttribute("foods",foodList);
-        return "food/food-home";
+    public List<Food> displayFoods(){
+        return foodService.getAllFood();
     }
 
 
-    @GetMapping("/new")
-    public String addNewFood(Model model){
-        Food newFood= new Food();
-        model.addAttribute("food",newFood);
-        return "food/new-food";
+    @PostMapping("/foods")
+    public Food addNewFood(@RequestBody Food food){
+        return foodService.saveFood(food);
     }
 
     @PostMapping("/new")
-    public String saveNewFood(Model model, Food food, Errors errors){
+    public String saveNewFood( Food food, Errors errors){
         if(errors.hasErrors()){
             return "food/new-food";
         }
@@ -46,18 +50,50 @@ public class FoodController {
         return "redirect:/food/new";
     }
 
-    @GetMapping("/update")
-    public String updateFood(@RequestParam("id") Long foodId,Model model){
-        Food food=foodService.findByFoodId(foodId);
-        model.addAttribute("food",food);
-        return "food/new-food";
+    @GetMapping("/food/{id}")
+    public ResponseEntity<Food> getFoodById(@PathVariable("id") Long foodId){
+        Food food= foodService.findByFoodId(foodId)
+                .orElseThrow(
+                        () -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,String.format(FOOD_NOT_FOUND_ERROR_MESSAGE,foodId)
+                        )
+                );
+        return ResponseEntity.ok(food);
+
     }
 
-    @GetMapping("delete")
-    public String deleteFood(@RequestParam("id") Long foodId, Model model){
-        Food food= foodService.findByFoodId(foodId);
-        foodService.deleteFood(food);
-        return "redirect:/food/new";
+
+
+
+    @PutMapping("/food/{id}")
+    public Food updateFood(@PathVariable("id") Long foodId, @RequestBody Food foodDetails){
+        final Food foodToUpdate=
+                foodService.findByFoodId(foodId)
+                .orElseThrow(()->new ResponseStatusException
+                        (HttpStatus.NOT_FOUND,String.format(FOOD_NOT_FOUND_ERROR_MESSAGE,foodId)));
+
+        foodToUpdate.setFoodName(foodDetails.getFoodName());
+        foodToUpdate.setCalorie(foodDetails.getCalorie());
+        foodToUpdate.setProtein(foodDetails.getProtein());
+        foodToUpdate.setCarbs(foodDetails.getCarbs());
+        foodToUpdate.setSugar(foodDetails.getSugar());
+        foodToUpdate.setFat(foodDetails.getFat());
+
+        return foodService.updateFoodInformation(foodToUpdate);
+    }
+
+    @DeleteMapping("/food/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deleteFood(@PathVariable("id") Long foodId){
+        Optional<Food> foodToDelete= foodService.findByFoodId(foodId);
+        //is empty is a java 11 feature so the opposite of present is put here.
+        if(!foodToDelete.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(String.format(FOOD_NOT_FOUND_ERROR_MESSAGE,foodId));
+        }
+
+        foodService.deleteFood(foodToDelete.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted");
     }
 
 

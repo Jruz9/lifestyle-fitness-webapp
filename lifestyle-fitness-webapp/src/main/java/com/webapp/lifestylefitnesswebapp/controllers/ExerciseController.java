@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/exercise")
+@RequestMapping("/api/v1")
 public class ExerciseController {
 
     @Autowired
     ExerciseService exerciseService;
 
-    @GetMapping
+    //get all food on your list
+    @GetMapping()
     public String displayExercise(Model model) {
         List<Exercise> exerciseList = exerciseService.getAllExercise();
         model.addAttribute("exercise", exerciseList);

@@ -2,8 +2,10 @@ package com.webapp.lifestylefitnesswebapp.dao;
 
 import com.webapp.lifestylefitnesswebapp.entities.Food;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface foodRepo extends PagingAndSortingRepository<Food,Long> {
 
@@ -14,5 +16,5 @@ public interface foodRepo extends PagingAndSortingRepository<Food,Long> {
 
 
 
-    Food findByFoodId(long foodId);
+    Optional<Food> findByFoodId(@Param("id") long foodId);
 }
