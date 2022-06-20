@@ -16,8 +16,8 @@ import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
-@Controller
-@RequestMapping("/food")
+@RestController
+@RequestMapping("/api/v1")
 public class FoodController {
 
     private static final String FOOD_NOT_FOUND_ERROR_MESSAGE = "Could not find the food with ID %d";
@@ -29,7 +29,7 @@ public class FoodController {
     //change the whole system to use the react way of handling the data with the api.
 
 
-    @GetMapping("/food")
+    @GetMapping("/foods")
     //this method implementation will be just to list all of them. the next will be based on timeDate.
     public List<Food> displayFoods(){
         return foodService.getAllFood();
@@ -41,16 +41,8 @@ public class FoodController {
         return foodService.saveFood(food);
     }
 
-    @PostMapping("/new")
-    public String saveNewFood( Food food, Errors errors){
-        if(errors.hasErrors()){
-            return "food/new-food";
-        }
-        foodService.saveFood(food);
-        return "redirect:/food/new";
-    }
 
-    @GetMapping("/food/{id}")
+    @GetMapping("/foods/{id}")
     public ResponseEntity<Food> getFoodById(@PathVariable("id") Long foodId){
         Food food= foodService.findByFoodId(foodId)
                 .orElseThrow(
@@ -65,7 +57,7 @@ public class FoodController {
 
 
 
-    @PutMapping("/food/{id}")
+    @PutMapping("/foods/{id}")
     public Food updateFood(@PathVariable("id") Long foodId, @RequestBody Food foodDetails){
         final Food foodToUpdate=
                 foodService.findByFoodId(foodId)
@@ -82,7 +74,7 @@ public class FoodController {
         return foodService.updateFoodInformation(foodToUpdate);
     }
 
-    @DeleteMapping("/food/{id}")
+    @DeleteMapping("/foods/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteFood(@PathVariable("id") Long foodId){
         Optional<Food> foodToDelete= foodService.findByFoodId(foodId);

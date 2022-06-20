@@ -11,13 +11,13 @@ public class Food {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "food_id")
     private long foodId;
 
     @Column(name = "food_name")
     private String foodName;
-    @Column(name = "calorie")
+        @Column(name = "calorie")
     private Double calorie;
     @Column(name = "protein")
     private Double protein;
@@ -25,7 +25,7 @@ public class Food {
     private Double carbs;
     @Column(name = "sugar")
     private Double sugar;
-    @Column(name = "fat")
+    @Column(name = "total_fat")
     private Double fat;
     @Column(name = "timezone")
     private String foodTime;
