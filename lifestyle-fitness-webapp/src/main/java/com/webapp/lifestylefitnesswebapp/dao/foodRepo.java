@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
-
+// keep the paging and sorting due to jpa repo causing you to manually put ids.
 public interface foodRepo extends PagingAndSortingRepository<Food,Long> {
 
     @Override

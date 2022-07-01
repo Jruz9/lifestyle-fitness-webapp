@@ -1,39 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import FoodServices from '../services/FoodServices';
 import Table from 'react-bootstrap/Table';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
-class ListFoodComponent extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            foods: []
-        }
+function ListFoodComponent(){
 
-        this.addNewFood = this.addNewFood.bind(this);
-    }
-    
+    //useState is a Hook (function) that allows you to have state variables in functional components.
+    const [foods,setFoods]=useState([])
 
+    //Use effect   Effects Hooks are equivalent to componentDidMount(), componentDidUpdate(), and componentWillUnmount() lifecycle methods.
+    useEffect(
+        () =>{
+            getAllFoods()
+        },[])
 
-
-    componentDidMount() {
-        FoodServices.getFood().then((res) => {
-            this.setState({ foods: res.data });
+    const getAllFoods = () => {
+        FoodServices.getFood().then((response)=>{
+            setFoods(response.data)
+            console.log(response.data);
         });
+    };
+
+    const deleteFood= (foodId)=>{
+        FoodServices.deleteFood(foodId).then((response) => {
+            getAllFoods();
+        }).catch(error =>{
+            console.log(error);
+            
+        })
+
     }
 
-    addNewFood(){
-        // this.props.history.push("/add-food");
-        <Link to="/add-food" state={this.addNewFood}/>
-    }
 
-    render() {
+
+
         return (
-            <div>
+            <div className='container'>
                 <h2 className='text-center'>Food List</h2>
-                <div className='row'>
-                    <button className='btn btn-primary' onClick={this.addNewFood}> Add Food</button>
-                </div>
+                <Link to="/add-food/" className='btn btn-primary mb-2'>Add Food</Link>
                 <div className='row'>
                     <Table striped bordered hover>
 
@@ -50,9 +54,9 @@ class ListFoodComponent extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.foods.map(
+                                foods.map(
                                     food =>
-                                        <tr key={food.id}>
+                                        <tr key={food.foodId}>
                                             {/* you have to use the ending name of the geters and setters of the java spring entinties */}
                                             <td>{food.foodName}</td>
                                             <td>{food.calorie}</td>
@@ -61,7 +65,11 @@ class ListFoodComponent extends Component {
                                             <td>{food.sugar}</td>
                                             <td>{food.fat}</td>
                                             <td>{food.foodTime}</td>
-
+                                            <td>    
+                                                {/* need to add website html or reactpage to render, that why it has the error */}
+                                                <Link className='btn btn-info' to={`/edit-food/ ${food.foodId}`}>Update</Link>
+                                                <button className='btn btn-danger' onClick={() => deleteFood(food.foodId)} style={{marginLeft:"10px"}}>Delete</button>
+                                            </td>
                                         </tr>
                                 )
                             }
@@ -73,6 +81,5 @@ class ListFoodComponent extends Component {
             </div>
         )
     }
-}
 
 export default ListFoodComponent;

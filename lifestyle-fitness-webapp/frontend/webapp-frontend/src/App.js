@@ -15,7 +15,8 @@ function App() {
             <Routes>
               <Route path= "/" element={<ListFoodComponent/>}/>
               <Route path='/foods' element={<ListFoodComponent/>}/>
-              <Route path='"/add-food' element={<CreateFoodComponent/>}/>
+              <Route path='/add-food' element={<CreateFoodComponent/>}/>
+              <Route path='/edit-food/:foodId' element ={<CreateFoodComponent/>}/>
               </Routes>
           </div>
           <FooterComponent />
