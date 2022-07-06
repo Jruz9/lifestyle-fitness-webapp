@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-    @RequestMapping("/api/v1")
+@RequestMapping("/api/v1")
 public class FoodController {
 
     private static final String FOOD_NOT_FOUND_ERROR_MESSAGE = "Could not find the food with ID %d";

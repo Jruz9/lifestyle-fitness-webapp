@@ -22,7 +22,7 @@ class HeaderComponent extends Component {
                     <Nav>
                         <Nav.Link href='/'>Home</Nav.Link>
                         <Nav.Link href='/'>food diet</Nav.Link>
-                        <Nav.Link href='/'>excerise routine</Nav.Link>                  
+                        <Nav.Link href='/exercise'>excerise routine</Nav.Link>                  
                     </Nav>
                     </Navbar.Collapse>
                     </Container>
