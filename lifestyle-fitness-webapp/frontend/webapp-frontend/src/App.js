@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import CreateFoodComponent from './components/CreateFoodComponent';
 import ListExerciseComponent from './components/ListExerciseComponent';
 import CreateExerciseComponent from './components/CreateExerciseComponent';
+import HomepageComponent from './components/HomePageComponent';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <HeaderComponent />
           <div className="container">
             <Routes>
-              <Route path= "/" element={<ListFoodComponent/>}/>
+              <Route path= "/" element={<HomepageComponent/>}/>
               <Route path='/foods' element={<ListFoodComponent/>}/>
               <Route path='/add-food' element={<CreateFoodComponent/>}/>
               <Route path='/edit-food/:foodId' element ={<CreateFoodComponent/>}/>

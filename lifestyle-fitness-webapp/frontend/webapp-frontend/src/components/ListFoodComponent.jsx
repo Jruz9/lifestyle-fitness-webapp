@@ -66,7 +66,7 @@ function ListFoodComponent(){
                                             <td>{food.fat}</td>
                                             <td>{food.foodTime}</td>
                                             <td>    
-                                                {/* need to add website html or reactpage to render, that why it has the error */}
+                                                {/* need to add website html or react-page to render, that why it has the error */}
                                                 <Link className='btn btn-info' to={`/edit-food/ ${food.foodId}`}>Update</Link>
                                                 <button className='btn btn-danger' onClick={() => deleteFood(food.foodId)} style={{marginLeft:"10px"}}>Delete</button>
                                             </td>
