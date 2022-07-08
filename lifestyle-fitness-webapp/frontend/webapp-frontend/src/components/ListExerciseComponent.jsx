@@ -55,6 +55,7 @@ function ListExerciseComponent(){
                                     <td>{exercise.sets}</td>
                                     <td>{exercise.reps}</td>
                                     <td>{exercise.time}</td>
+                                    <td>{exercise.speed}</td>
                                     <td>{exercise.exerciseForm}</td>
                                     <td>
                                         <Link className='btn btn-info' to= {`/edit-exercise/${exercise.exerciseId}`}>Update</Link>

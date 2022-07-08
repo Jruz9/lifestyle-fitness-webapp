@@ -1,10 +1,7 @@
 package com.webapp.lifestylefitnesswebapp.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "exercise")
@@ -14,6 +11,7 @@ public class Exercise {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "exercise_id")
     private Long exerciseId;
     @Column(name = "sets")

@@ -16,5 +16,5 @@ public interface foodRepo extends PagingAndSortingRepository<Food,Long> {
 
 
 
-    Optional<Food> findByFoodId(@Param("id(") long foodId);
+    Optional<Food> findByFoodId(@Param("id") long foodId);
 }
