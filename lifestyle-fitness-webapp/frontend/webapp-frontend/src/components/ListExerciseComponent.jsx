@@ -58,6 +58,7 @@ function ListExerciseComponent(){
                                     <td>{exercise.speed}</td>
                                     <td>{exercise.exerciseForm}</td>
                                     <td>
+                                        {/*@todo add modal to the delete button*/}
                                         <Link className='btn btn-info' to= {`/edit-exercise/${exercise.exerciseId}`}>Update</Link>
                                         <button className='btn btn-danger' onClick={() => deleteExercise(exercise.exerciseId)} style={{marginLeft:"10px"}}>Delete</button>
                                     </td>

@@ -67,6 +67,7 @@ function ListFoodComponent(){
                                             <td>{food.foodTime}</td>
                                             <td>    
                                                 {/* need to add website html or react-page to render, that why it has the error */}
+                                                {/*@todo add modal to the delete key to make sure user knows what they are about to delete using this blog: https://blog.bitsrc.io/build-a-simple-modal-component-with-react-16decdc111a6*/}
                                                 <Link className='btn btn-info' to={`/edit-food/ ${food.foodId}`}>Update</Link>
                                                 <button className='btn btn-danger' onClick={() => deleteFood(food.foodId)} style={{marginLeft:"10px"}}>Delete</button>
                                             </td>
