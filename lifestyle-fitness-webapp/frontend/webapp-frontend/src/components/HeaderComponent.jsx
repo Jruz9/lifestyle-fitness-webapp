@@ -21,8 +21,9 @@ class HeaderComponent extends Component {
                     <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav>
                         <Nav.Link href='/'>Home</Nav.Link>
-                        <Nav.Link href='/foods'>food diet</Nav.Link>
-                        <Nav.Link href='/exercise'>excerise routine</Nav.Link>                  
+                        <Nav.Link href='/foods'>food List</Nav.Link>
+                        <Nav.Link href='/exercise'>Exercise List</Nav.Link>
+                        <Nav.Link href="/">Calorie Calculator</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                     </Container>
