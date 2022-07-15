@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -36,13 +34,13 @@ public class ExerciseController {
     }
 
     @PostMapping("/exercise")
-    public Exercise addNewExercise(@RequestBody Exercise exercise) {
+    public Exercise addNewExercise(@Valid @RequestBody Exercise exercise) {
         log.info("Request to create new exercise : {}", exercise);
         return  exerciseService.saveExercise(exercise);
     }
 
     @GetMapping("/exercise/{id}")
-    public ResponseEntity<Exercise> getExerciseById(@PathVariable("id") Long exerciseId){
+    public ResponseEntity<Exercise> getExerciseById( @PathVariable("id") Long exerciseId){
         Exercise exercise= exerciseService.findByExerciseId(exerciseId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,String.format(EXERCISE_NOT_FOUND_ERROR_MESSAGE,exerciseId)
@@ -52,7 +50,7 @@ public class ExerciseController {
     }
 
     @PutMapping("/exercise/{id}")
-    public Exercise updateExercise(@PathVariable("id") Long exerciseId, @RequestBody Exercise exerciseUpdate){
+    public Exercise updateExercise(@Valid @PathVariable("id") Long exerciseId, @RequestBody Exercise exerciseUpdate){
         log.info("Request to  update existing exercise {}",exerciseUpdate);
         final Exercise exerciseToUpdate =
                 exerciseService.findByExerciseId(exerciseId)

@@ -5,7 +5,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "exercise")
+
 public class Exercise {
+    public Exercise() {
+
+    }
+
     enum exerciseType {
         strength, aerobic
     }
@@ -23,10 +28,26 @@ public class Exercise {
 
     @Column(name = "speed")
     private Double speed;
+
+
     @Column(name = "exercise_name")
         private String exerciseName;
 
+    public Exercise(Long exerciseId, String exerciseName, Integer reps, Integer time, Double speed,Integer sets,String exerciseForm) {
+        this.exerciseId = exerciseId;
+        this.exerciseName = exerciseName;
+        this.sets = sets;
+        this.reps = reps;
+        this.time = time;
+        this.speed = speed;
+        this.exerciseForm = exerciseForm;
+    }
+
     @Column(name = "exercise_form")
+
+
+
+
     private String exerciseForm; //just the type of exercise the person classifies it as.
 
 

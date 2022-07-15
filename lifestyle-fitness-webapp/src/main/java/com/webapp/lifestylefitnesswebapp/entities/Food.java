@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "food")
 public class Food {
+    public Food() {
+
+    }
+
     enum mealType {
         breakfast, lunch, dinner, snack,
         ;
@@ -27,8 +31,22 @@ public class Food {
     private Double sugar;
     @Column(name = "total_fat")
     private Double fat;
+
     @Column(name = "timezone")
     private String foodTime;
+
+    public Food(long foodId, String foodName, Double calorie, Double protein, Double carbs, Double sugar, Double fat, String foodTime) {
+        this.foodId = foodId;
+        this.foodName = foodName;
+        this.calorie = calorie;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.sugar = sugar;
+        this.fat = fat;
+        this.foodTime = foodTime;
+    }
+
+
 
     public long getFoodId() {
         return foodId;
