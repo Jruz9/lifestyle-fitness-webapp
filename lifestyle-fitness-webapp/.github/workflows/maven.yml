@@ -23,5 +23,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      working-directory: ./lifestyle-fitness-webapp
       run: mvn -clean install
 
